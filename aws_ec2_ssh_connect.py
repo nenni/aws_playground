@@ -52,18 +52,24 @@ def arg_params():
 def get_aws_node_ip():
     ec2 = boto3.resource('ec2')
     instances = ec2.instances.all()
-    instance_id = 1
+    local_index = 1
 
     list_instances_ip = []
     for instance in instances:
         list_instances_ip.append(instance.public_ip_address)
-        print("{id}) {hostname} | State: {state} | Public IP/FQDN: {pub_fqdn}".format(
-            id=instance_id,
-            hostname=instance.tags[0].get('Value', None),
+
+        tags = instance.tags
+        for tag in tags:
+            if tag['Key'] == 'Name':
+                tag_name = tag.get("Value", None)
+
+        print("{id}) {hostname} | State: {state} | Public FQDN: {pub_fqdn}".format(
+            id=local_index,
+            hostname=tag_name,
             state=str(instance.state["Name"]).upper(),
             pub_fqdn=instance.public_dns_name,
         ))
-        instance_id += 1
+        local_index += 1
     return list_instances_ip
 
 
