@@ -8,6 +8,7 @@ import boto3
 SSH_BIN = '/usr/bin/ssh'
 AWS_USER = 'ec2-user'
 AWS_CERT = '../nenni/n_aws_linux_micro_1.pem'
+SSH_TMOUT = 20
 
 
 def main():
@@ -27,7 +28,7 @@ def main():
         )
 
         print(ssh_cmd)
-        subprocess.run(ssh_cmd, shell=True)
+        subprocess.run(ssh_cmd, timeout=SSH_TMOUT, shell=True)
 
     except Exception as e:
         print("INVALID INPUT")
