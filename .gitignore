@@ -86,3 +86,6 @@ ENV/
 
 #IDE
 .idea/
+
+#Temporary files
+temp*.py
