@@ -7,7 +7,7 @@ import boto3
 
 SSH_BIN = '/usr/bin/ssh'
 AWS_USER = 'ec2-user'
-AWS_CERT = '../nenni/n_aws_linux_micro_1.pem'
+AWS_CERT = '~/Projects/AWS/nenni/n_aws_linux_micro_1.pem'
 SSH_TMOUT = 20
 
 
