@@ -3,8 +3,7 @@
 import sys
 import subprocess
 import boto3
-import argparse
-from argparse import RawTextHelpFormatter
+from argparse import RawTextHelpFormatter, ArgumentParser
 
 SSH_BIN = '/usr/bin/ssh'
 SSH_TMOUT = 20
@@ -38,8 +37,8 @@ def main():
 
 
 def arg_params():
-    parser = argparse.ArgumentParser(description="AWS EC2 SSH connection script",
-                                     formatter_class=RawTextHelpFormatter)
+    parser = ArgumentParser(description="AWS EC2 SSH connection script",
+                            formatter_class=RawTextHelpFormatter)
     parser.add_argument('-p', dest="pem_file", help='ssh PEM file', required=True)
     parser.add_argument('-u', dest="user", help='AWS EC2 instance user', required=True)
     args = parser.parse_args()
