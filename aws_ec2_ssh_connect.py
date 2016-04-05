@@ -6,7 +6,7 @@ import boto3
 from argparse import RawTextHelpFormatter, ArgumentParser
 
 SSH_BIN = '/usr/bin/ssh'
-SSH_TMOUT = 20
+SSH_TMOUT = 20000
 
 
 def main():
