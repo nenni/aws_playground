@@ -29,6 +29,10 @@ def main():
 
 
 def arg_params():
+    """
+
+    :return:
+    """
     parser = ArgumentParser(description="AWS Route53 A RR update script",
                             formatter_class=RawTextHelpFormatter)
     parser.add_argument('-z', dest='zone_name', help='route53 hosted zone', required=True)
@@ -67,6 +71,8 @@ def get_dns_rrs(client, zone, a_record):
     """
 
     :param client:
+    :param zone:
+    :param a_record:
     :return:
     """
 
@@ -91,6 +97,8 @@ def change_dns_rr(client, hostedzoneid, dns_rrs, local_pub_ip, a_record):
     :param client:
     :param hostedzoneid:
     :param dns_rrs:
+    :param local_pub_ip:
+    :param a_record:
     :return:
     """
     if dns_rrs['ResourceRecordSets']:
