@@ -69,15 +69,20 @@ def get_dns_rrs(client, zone, a_record):
     :param client:
     :return:
     """
-    response_hosted_zone = client.list_hosted_zones_by_name(DNSName=zone)
-    hosted_zone_id = str(response_hosted_zone['HostedZones'][0]['Id'])
-    logging.info("Route53Update: Hosted Zone id: " + hosted_zone_id)
 
-    dns_rrs = client.list_resource_record_sets(HostedZoneId=hosted_zone_id,
-                                               StartRecordName=a_record,
-                                               StartRecordType=DNS_RR_TYPE,
-                                               MaxItems='1')
-    return hosted_zone_id, dns_rrs
+    response_hosted_zone = client.list_hosted_zones_by_name(DNSName=zone)
+    if response_hosted_zone['HostedZones']:
+        hosted_zone_id = str(response_hosted_zone['HostedZones'][0]['Id'])
+        logging.info("Route53Update: Hosted Zone id: " + hosted_zone_id)
+
+        dns_rrs = client.list_resource_record_sets(HostedZoneId=hosted_zone_id,
+                                                   StartRecordName=a_record,
+                                                   StartRecordType=DNS_RR_TYPE,
+                                                   MaxItems='1')
+        return hosted_zone_id, dns_rrs
+    else:
+        raise ValueError("Zone {zone} provided does not match any route53 hosted zone. "
+                         "Response: {response}".format(zone=zone, response=str(response_hosted_zone)))
 
 
 def change_dns_rr(client, hostedzoneid, dns_rrs, local_pub_ip, a_record):
